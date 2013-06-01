@@ -10,9 +10,8 @@ var getElementsByClassName = function (className) {
 
   var result = [],
       //nodes = document.body.childNodes,
-      nodes = document.body.getElementsByTagName('*'),
-      regex = new RegExp(className,'i'),
-      item;
+      nodes = document.getElementsByTagName('*'),
+      regex = new RegExp(className,'i');
 
       var recursion = function(num){
 
@@ -23,17 +22,18 @@ var getElementsByClassName = function (className) {
 
         // recursion
         if(regex.test(nodes[num].classList) === true){
-          result[result.length] = nodes[num];
-          //console.log( result[result.length] );
+          //result[result.length] = nodes[num];
+          result.push(nodes[num]);
+          //console.log( result[result.length].nodeName );
         }
-        return recursion(num-1);
+        recursion(num - 1);
       }
 
-      var recursionItems = recursion(nodes.length-1);
+      recursion(nodes.length-1);
 
-      console.log([].slice.call( document.getElementsByClassName("targetClassName") ));
-      console.log(result);
-      console.log( '--------------' );
+      //console.log([].slice.call( document.getElementsByClassName("targetClassName") ));
+      //console.log(result);
+      //console.log( '--------------' );
   return result;
 };
 

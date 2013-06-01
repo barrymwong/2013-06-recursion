@@ -3,41 +3,51 @@
 
 // but you don't so you're going to have to write it from scratch:
 var stringifyJSON = function (obj) {
-
-
-	if( typeof obj === 'number' || typeof obj === 'boolean' ){
-		obj = obj.toString();
+	if(obj === undefined) {
+		return '';
+	} if( typeof obj === 'number' || typeof obj === 'boolean' ){
+		return obj.toString();
 	} else if ( obj === null ) {
-		obj = String(obj);
+		return String(obj);
 	} else if ( typeof obj === 'string' ) {
-		obj = '"' + obj + '"';
-	} else if ( obj instanceof Array ) {
-		obj = '[' + obj.join() + ']';
-	} else if ( obj instanceof Object ) {
-		obj = obj.join();
-	}
+		return '"' + obj + '"';
+	} else if(obj instanceof Object){
 
+		if( Array.isArray(obj) ){ 
+		// if this is an array...
+			var arrToString = [];
 
+			for(var i=0; i<obj.length; i++){
+				arrToString.push(stringifyJSON(obj[i]));
+			}
+			arrToString = '[' + arrToString + ']';
+			return arrToString;
 
-/*
-	// recursion
-	var rec = function(arr) {
-		console.log( 'before: ', arr );
-		console.log( 'now: ', arr.pop() );
-		if(arr.length) {
-			rec(arr);
-		} else {
-			console.log('done.');
+		} else { 
+		// else this is an object...
+			var objToString = [],
+				keyItem, val;
+
+			for(var key in obj){
+		 		keyItem = stringifyJSON(key);
+		 		val = stringifyJSON(obj[key]);
+
+		 		if(val === "{}") {
+		 			console.log(val);
+		 		}
+
+		 		if(val != "") {
+		 			objToString.push(keyItem + ':' + val);
+		 		} else {
+		 			return "{}";
+		 		}
+			}
+			return '{' + objToString + '}';
 		}
-	};
-	rec(validObjects);
-*/
-
-
-
-	return obj;
-
+	}
 };
+
+
 
 
 
