@@ -8,41 +8,36 @@ var getElementsByClassName = function (className) {
   // your code here
   // You should use document.body, element.childNodes, and element.classList
 
-  var arr = [],
-      cn = document.body.childNodes,
-      //cn = document.body.getElementsByTagName('*'),
-      re = new RegExp(className,'i'),
+  var result = [],
+      //cn = document.body.childNodes,
+      nodes = document.body.getElementsByTagName('*'),
+      regex = new RegExp(className,'i'),
       i, item;
 
-/*
-  for(i=0; i<cn.length; i++){
-    if(re.test(cn[i].className) == true){
-      arr.push(cn[i]);
-      item = cn[i];
-      arr[arr.length] = item;
 
+      var recursion = function(num){
 
-    }
-  }
-*/
-
-
-      [].forEach.call( cn, function(el) {
-        if(re.test(el.className) == true){
-         //console.log(el);
-         arr[arr.length] = el;
+        // base
+        if(num === 0){
+          return 1;
         }
-      });
 
+        // recursion
+        if(regex.test(nodes[num].className) === true){
+          result.push(nodes[num]);
+          item = nodes[num];
+          result[result.length] = item;
+          //console.log(result);
+        }
+        return recursion(num-1);
+      }
 
-
-
-
-
-
-  console.log(document.getElementsByClassName(className)); // is HTMLCollection??
-  console.log(arr);
-  console.log('-----------');
-  return arr;
-
+      var recursionItems = recursion(nodes.length-1);
+      console.log(result);
+      //console.log(document.getElementsByClassName(className));
+  return result;
 };
+
+
+
+
