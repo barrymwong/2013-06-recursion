@@ -4,7 +4,7 @@ var htmlStrings = [
   "<p><p class='targetClassName'></p></p>",
   "<p><p class='targetClassName'><p class='targetClassName'></p></p></p>",
   "<p><p></p><p><p class='targetClassName'></p></p></p>",
-  "<p><p class='targetClassName'></p><p class='targetClassName'></p></p>",
+  "<p><p class='targetClassName'></p><p class='targetClassName'></p></p>"
   "<p><div class='somediv'><div class='innerdiv'><span class='targetClassName'>yay</span></div></div></p>"
 ];
 
@@ -17,6 +17,7 @@ describe("getElementsByClassName", function(){
 
       var result = getElementsByClassName("targetClassName");
       var expectedNodeList = document.getElementsByClassName("targetClassName");
+      expectedNodeList = [].slice.call(expectedNodeList);
       var equality = _.isEqual(result, expectedNodeList); // why can't we use `===` here?
       expect(equality).toBeTruthy();
 
@@ -25,3 +26,5 @@ describe("getElementsByClassName", function(){
   });
 
 });
+
+

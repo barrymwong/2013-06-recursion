@@ -9,11 +9,10 @@ var getElementsByClassName = function (className) {
   // You should use document.body, element.childNodes, and element.classList
 
   var result = [],
-      //cn = document.body.childNodes,
+      //nodes = document.body.childNodes,
       nodes = document.body.getElementsByTagName('*'),
       regex = new RegExp(className,'i'),
-      i, item;
-
+      item;
 
       var recursion = function(num){
 
@@ -23,21 +22,19 @@ var getElementsByClassName = function (className) {
         }
 
         // recursion
-        if(regex.test(nodes[num].className) === true){
-          result.push(nodes[num]);
-          item = nodes[num];
-          result[result.length] = item;
-          //console.log(result);
+        if(regex.test(nodes[num].classList) === true){
+          result[result.length] = nodes[num];
+          //console.log( result[result.length] );
         }
         return recursion(num-1);
       }
 
       var recursionItems = recursion(nodes.length-1);
+
+      console.log([].slice.call( document.getElementsByClassName("targetClassName") ));
       console.log(result);
-      //console.log(document.getElementsByClassName(className));
+      console.log( '--------------' );
   return result;
 };
-
-
 
 
