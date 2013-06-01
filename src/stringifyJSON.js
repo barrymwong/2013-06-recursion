@@ -32,10 +32,6 @@ var stringifyJSON = function (obj) {
 		 		keyItem = stringifyJSON(key);
 		 		val = stringifyJSON(obj[key]);
 
-		 		if(val === "{}") {
-		 			console.log(val);
-		 		}
-
 		 		if(val != "") {
 		 			objToString.push(keyItem + ':' + val);
 		 		} else {
