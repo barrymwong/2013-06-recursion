@@ -10,30 +10,23 @@ var getElementsByClassName = function (className) {
 
   var result = [],
       body = document.body,
-      nodes = body.getElementsByTagName('*'),
-      regex = new RegExp(className,'i');
+      nodes = body.childNodes,
+      pattern = RegExp(className, 'i');
 
-      var recursion = function(num){
+      // check each node and it's contents as well
+      var recursion = function(nod){
+        for(var i=0; i<nod.length; i++){
+          if( pattern.test(nod[i].className) ) {
+            result.push(nod[i])
+          }
 
-        // base
-        if(num === 0){
-          return 1;
+          if(nod[i].innerHTML){
+            recursion(nod[i].childNodes);
+          }
         }
-
-        // recursion
-        if(regex.test(nodes[num].classList) === true){
-          result.push(nodes[num]);
-        }
-        recursion(num - 1);
       }
+      recursion(nodes);
 
-      recursion(nodes.length-1);
-
-      //console.log([].slice.call( document.getElementsByClassName("targetClassName") ));
-      //console.log(result);
-      //console.log( '--------------' );
-
-  // spec passes in firefox, but not in chrome...why???
   return result;
 };
 
