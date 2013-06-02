@@ -10,13 +10,12 @@ var getElementsByClassName = function (className) {
 
   var result = [],
       body = document.body,
-      nodes = body.childNodes,
-      pattern = RegExp(className, 'i');
+      nodes = body.childNodes;
 
       // check each node and it's contents as well
       var recursion = function(nod){
         for(var i=0; i<nod.length; i++){
-          if( pattern.test(nod[i].className) ) {
+          if( nod[i].nodeType === 1 && nod[i].classList.contains(className) ) {
             result.push(nod[i])
           }
 
