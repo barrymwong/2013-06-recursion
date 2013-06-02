@@ -26,7 +26,7 @@ var stringifyJSON = function (obj) {
 			return arrToString;
 
 		} else { 
-		// else this is an object...
+		// else this is an object literal...
 			var objToString = [],
 				keyItem, val;
 
