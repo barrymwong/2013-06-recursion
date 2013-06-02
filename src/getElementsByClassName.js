@@ -9,8 +9,8 @@ var getElementsByClassName = function (className) {
   // You should use document.body, element.childNodes, and element.classList
 
   var result = [],
-      //nodes = document.body.childNodes,
-      nodes = document.getElementsByTagName('*'),
+      body = document.body,
+      nodes = body.getElementsByTagName('*'),
       regex = new RegExp(className,'i');
 
       var recursion = function(num){
@@ -22,9 +22,7 @@ var getElementsByClassName = function (className) {
 
         // recursion
         if(regex.test(nodes[num].classList) === true){
-          //result[result.length] = nodes[num];
           result.push(nodes[num]);
-          //console.log( result[result.length].nodeName );
         }
         recursion(num - 1);
       }
@@ -34,6 +32,8 @@ var getElementsByClassName = function (className) {
       //console.log([].slice.call( document.getElementsByClassName("targetClassName") ));
       //console.log(result);
       //console.log( '--------------' );
+
+  // spec passes in firefox, but not in chrome...why???
   return result;
 };
 
