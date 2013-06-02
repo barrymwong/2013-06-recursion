@@ -5,7 +5,9 @@
 var stringifyJSON = function (obj) {
 	if(obj === undefined) {
 		return '';
-	} if( typeof obj === 'number' || typeof obj === 'boolean' ){
+	} if (typeof obj === 'function') {
+		return obj + '';
+	} else if( typeof obj === 'number' || typeof obj === 'boolean' ){
 		return obj.toString();
 	} else if ( obj === null ) {
 		return String(obj);
@@ -32,7 +34,8 @@ var stringifyJSON = function (obj) {
 		 		keyItem = stringifyJSON(key);
 		 		val = stringifyJSON(obj[key]);
 
-		 		if(val != "") {
+		 		// functions should be omitted in json
+		 		if(val != "" && typeof obj[key] !== 'function') {
 		 			objToString.push(keyItem + ':' + val);
 		 		} else {
 		 			return "{}";
